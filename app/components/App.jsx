@@ -22,6 +22,9 @@ export default class App extends React.Component {
         }
       ]
     };
+
+    this.addNote= this.addNote.bind(this);
+
   }
   render() {
     const notes = this.state.notes;
@@ -29,8 +32,21 @@ export default class App extends React.Component {
     return (
       <div>
         <button className="add-note" onClick={this.addNote}>+</button>
-        <Notes items={notes} />
+        <Notes items={notes} onEdit= {this.editNote} />
       </div>
     );
+  }
+  addNote(e) {
+    e.preventDefault();
+    this.setState({
+      notes: this.state.notes.concat([{
+        id: uuid.v4(),
+        task: 'New task ivlo'
+      }])
+    })
+  }
+
+  editNote(noteId, task) {
+    alert('note edited', noteId, task);
   }
 }
